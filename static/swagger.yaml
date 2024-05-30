@@ -1,0 +1,121 @@
+openapi: 3.0.0
+info:
+  title: TASKI_ZM
+  description: Сервис создания заметок
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000
+paths:
+  /:
+    get:
+      summary: Hello World
+      description: Проверка запуска локального сервера
+      responses:
+        '200':
+          description: Выведет на экран Hello World
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Hello World!
+  
+  /tasks/create/:
+    post:
+      summary: Создает новую заметку
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        '201':
+          description: Заметка создана
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+  
+  /tasks/list/:
+    get:
+      summary: Получение списка заметок
+      responses:
+        '200':
+          description: Получение списка заметок
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+  
+  /tasks/{id}/:
+    get:
+      summary: Заметка по ID
+      responses:
+        '200':
+          description: Получение заметок по id
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Task'
+  
+  /tasks/{task_id}/update/: 
+    patch:
+      summary: Изменение существующей заметки.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: Изменение заметки по ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        '200':
+          description: Заметка изменена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+                
+  /tasks/{task_id}/:              
+    delete:
+      responses:
+        '200':
+          description: Заметка изменена
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Task deleted successfully
+                    
+components:
+  schemas:
+    Task:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        task_info:
+          type: string
+        created_at:
+          type: string
+          format: date
+        updated_at:
+          type: string
+          format: date
+        datetime_to_do:
+          type: string
+          format: date
