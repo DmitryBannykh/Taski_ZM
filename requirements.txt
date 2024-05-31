@@ -5,8 +5,10 @@ Flask-Testing==0.8.1
 flask_marshmallow==1.2.1
 marshmallow==3.21.2
 marshmallow-sqlalchemy==1.0.0
-pytest==8.2.1
 SQLAlchemy==2.0.30
 Werkzeug==3.0.3
 swagger-ui-py==23.9.23
 flask_swagger_ui==4.11.1
+requests==2.32.3
+flask_apispec==0.11.4
+flask_cors==4.0.1

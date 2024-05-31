@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import request, jsonify, send_from_directory
 from .model import Task, db
 from . import ma
 from datetime import datetime
@@ -12,8 +12,8 @@ class TaskSchema(ma.Schema):
                   'created_at', 'updated_at', 'datetime_to_do')
 
     title = fields.String(required=True, validate=lambda s: len(s) > 0)
-    task_info = fields.String(required=False, allow_none=True)
-    datetime_to_do = fields.Date(required=False,)
+    task_info = fields.String(required=True, allow_none=True)
+    datetime_to_do = fields.DateTime(required=True,)
 
     @validates('title')
     def validate_title(self, value):
@@ -27,8 +27,12 @@ tasks_schema = TaskSchema(many=True)
 
 
 def init_routes(app):
+    @app.route('/static/<path:path>')
+    def sent_static(path):
+        """Роут для проверки работы API."""
+        return send_from_directory('./static/', path)
 
-    @app.route('/')
+    @app.route('/', methods=['GET'])
     def hello_world():
         """Роут для проверки работы API."""
         return jsonify('Hello World!'), 200
@@ -45,7 +49,7 @@ def init_routes(app):
         db.session.add(new_task)
         db.session.commit()
 
-        return task_schema.jsonify(new_task), 201
+        return task_schema.jsonify(new_task), 200
 
     @app.route('/tasks/list/', methods=['GET'])
     def get_tasks():

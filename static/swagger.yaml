@@ -112,10 +112,10 @@ components:
           type: string
         created_at:
           type: string
-          format: date
+          format: date-time
         updated_at:
           type: string
-          format: date
+          format: date-time
         datetime_to_do:
           type: string
-          format: date
+          format: date-time
