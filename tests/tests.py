@@ -53,7 +53,7 @@ def test_tasks_delete(id):
 if __name__ == "__main__":
     test_create_task()
     test_tasks_list()
-    test_tasks_id(5)
-    test_tasks_update(10)
-    test_tasks_delete(10)  # При вторичном и последующем запуске тестов,
+    test_tasks_id(1)
+    test_tasks_update(2)
+    test_tasks_delete(2)  # При вторичном и последующем запуске тестов,
     # у test_tasks_delete() требуется менять ID(параметр) на большее значение.
