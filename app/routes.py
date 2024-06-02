@@ -1,4 +1,4 @@
-from flask import request, jsonify, send_from_directory
+from flask import request, jsonify
 from .model import Task, db
 from . import ma
 from datetime import datetime
@@ -27,11 +27,6 @@ tasks_schema = TaskSchema(many=True)
 
 
 def init_routes(app):
-    @app.route('/static/<path:path>')
-    def sent_static(path):
-        """Роут для проверки работы API."""
-        return send_from_directory('./static/', path)
-
     @app.route('/', methods=['GET'])
     def hello_world():
         """Роут для проверки работы API."""
@@ -76,7 +71,6 @@ def init_routes(app):
         for key, value in data.items():
             setattr(task, key, value)
         task.updated_at = datetime.now()
-
         db.session.commit()
         return task_schema.jsonify(task), 200
 
